@@ -1,0 +1,71 @@
+groups:
+  - name: snmp-devices-rules
+    rules:
+      # CPU Metrics
+      - record: snmp_cpu_load_avg
+        expr: avg(rate(hrProcessorLoad{instance="172.20.50.76", job="snmp-devices"}[5m])) * 100
+
+      - record: snmp_cpu_percent_idle
+        expr: rate(ucd_cpu_percent_idle{instance="172.20.50.76", job="snmp-devices"}[5m])
+
+      - record: snmp_cpu_percent_user
+        expr: rate(ucd_cpu_percent_user{instance="172.20.50.76", job="snmp-devices"}[5m])
+
+      - record: snmp_cpu_percent_system
+        expr: rate(ucd_cpu_percent_system{instance="172.20.50.76", job="snmp-devices"}[5m])
+
+      - record: snmp_total_cpu_cores
+        expr: count(hrProcessorLoad{instance="172.20.50.76", job="snmp-devices"})
+
+      # Memory Metrics
+      - record: snmp_total_memory
+        expr: ucd_mem_total{instance="172.20.50.76", job="snmp-devices"}
+
+      - record: snmp_available_memory
+        expr: ucd_mem_available{instance="172.20.50.76", job="snmp-devices"}
+
+      - record: snmp_memory_usage_percent
+        expr: (1 - (ucd_mem_available{instance="172.20.50.76", job="snmp-devices"} / ucd_mem_total{instance="172.20.50.76", job="snmp-devices"})) * 100
+
+      - record: snmp_used_swap_memory
+        expr: ucd_mem_swap_used{instance="172.20.50.76", job="snmp-devices"}
+
+      - record: snmp_total_swap_memory
+        expr: ucd_mem_swap_total{instance="172.20.50.76", job="snmp-devices"}
+
+      # Disk Metrics
+      - record: snmp_total_disk_space
+        expr: ucd_disk_total{instance="172.20.50.76", job="snmp-devices"}
+
+      - record: snmp_available_disk_space
+        expr: ucd_disk_available{instance="172.20.50.76", job="snmp-devices"}
+
+      - record: snmp_disk_usage_percent
+        expr: (1 - (ucd_disk_available{instance="172.20.50.76", job="snmp-devices"} / ucd_disk_total{instance="172.20.50.76", job="snmp-devices"})) * 100
+
+      # Network Metrics
+      - record: snmp_network_received_bytes
+        expr: rate(ifHCInOctets{instance="172.20.50.76", job="snmp-devices"}[5m])
+
+      - record: snmp_network_transmitted_bytes
+        expr: rate(ifHCOutOctets{instance="172.20.50.76", job="snmp-devices"}[5m])
+
+      - record: snmp_network_received_packets
+        expr: rate(ifInUcastPkts{instance="172.20.50.76", job="snmp-devices"}[5m])
+
+      - record: snmp_network_transmitted_packets
+        expr: rate(ifOutUcastPkts{instance="172.20.50.76", job="snmp-devices"}[5m])
+
+      - record: snmp_network_admin_status
+        expr: ifAdminStatus{instance="172.20.50.76", job="snmp-devices"}
+
+      - record: snmp_network_oper_status
+        expr: ifOperStatus{instance="172.20.50.76", job="snmp-devices"}
+
+      # System Uptime
+      - record: snmp_system_uptime
+        expr: sysUpTimeInstance{instance="172.20.50.76", job="snmp-devices"}
+
+      # Number of Users
+      - record: snmp_logged_in_users
+        expr: host_users_logged_in{instance="172.20.50.76", job="snmp-devices"}

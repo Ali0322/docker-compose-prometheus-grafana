@@ -1,0 +1,36 @@
+global:
+  scrape_interval: 15s
+
+rule_files:
+  - /etc/prometheus/snmp-exporter/snmp-recording-rules.yml  # Path to recording rules
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'snmp'
+    static_configs:
+      - targets: ['172.20.50.76:9116']  # SNMP server system
+
+  - job_name: 'snmp-devices'
+    params:
+      module: [system, cpu, memory, disk, network]
+    static_configs:
+      - targets:
+          - 172.20.50.56  # First SNMP client
+          - 172.20.50.76  # Second SNMP client
+
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 172.20.50.76:9116
+
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets:
+        - "172.20.50.76:9100"
+        - "172.20.50.56:9100"

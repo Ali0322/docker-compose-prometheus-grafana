@@ -1,0 +1,46 @@
+auths:
+  public_v2:
+    community: public
+    security_level: noAuthNoPriv
+    auth_protocol: MD5
+    priv_protocol: DES
+    version: 2
+
+modules:
+  system:
+    walk:
+      - 1.3.6.1.2.1.1.3.0  # System uptime
+      - 1.3.6.1.2.1.25.1.1.0  # System uptime (Host Resources MIB)
+      - 1.3.6.1.2.1.25.1.6.0  # Number of users
+
+  cpu:
+    walk:
+      - 1.3.6.1.2.1.25.3.3.1.2  # Processor load / Per-core CPU load
+      - 1.3.6.1.4.1.2021.11.9.0  # CPU idle percentage
+      - 1.3.6.1.4.1.2021.11.10.0  # CPU user load
+      - 1.3.6.1.4.1.2021.11.11.0  # CPU system load
+      - 1.3.6.1.2.1.25.3.3.1.1  # Total number of CPU cores
+
+  memory:
+    walk:
+      - 1.3.6.1.4.1.2021.4.5.0  # Total memory
+      - 1.3.6.1.4.1.2021.4.6.0  # Available memory
+      - 1.3.6.1.4.1.2021.4.11.0  # Used swap memory
+      - 1.3.6.1.4.1.2021.4.4.0  # Total swap memory
+
+  disk:
+    walk:
+      - 1.3.6.1.4.1.2021.9.1.2  # Storage path
+      - 1.3.6.1.4.1.2021.9.1.6  # Total disk space
+      - 1.3.6.1.4.1.2021.9.1.7  # Available disk space
+      - 1.3.6.1.4.1.2021.9.1.9  # Disk usage percentage
+
+  network:
+    walk:
+      - 1.3.6.1.2.1.2.2.1.2  # Interface name
+      - 1.3.6.1.2.1.2.2.1.7  # Interface admin status
+      - 1.3.6.1.2.1.2.2.1.8  # Interface operational status
+      - 1.3.6.1.2.1.31.1.1.1.6  # Interface received bytes
+      - 1.3.6.1.2.1.31.1.1.1.10  # Interface transmitted bytes
+      - 1.3.6.1.2.1.2.2.1.10  # Interface received packets
+      - 1.3.6.1.2.1.2.2.1.16  # Interface transmitted packets

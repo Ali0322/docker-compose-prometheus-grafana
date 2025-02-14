@@ -1,0 +1,14 @@
+# Ignore system files
+*.swp
+.DS_Store
+
+# Ignore node_exporter and snmp_exporter binaries
+node_exporter-1.6.1.linux-amd64.tar.gz
+snmp_exporter-0.26.0.linux-amd64.tar.gz
+
+# Ignore Grafana and Prometheus data
+grafana-data
+
+
+
+
